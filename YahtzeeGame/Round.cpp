@@ -78,6 +78,8 @@ void Round::playTurn(int player_id) {
 	char player_choice = ' ';
 	int category_choice = 0;
 
+	int smth = 0; // test for git
+
 	//scorecard.displayScorecard();
 
 	playRoll();
