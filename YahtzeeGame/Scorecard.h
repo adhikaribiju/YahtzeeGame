@@ -39,10 +39,6 @@ private:
 	vector<string> categories; // to record the names of the categories
 	vector<int> scores; // to record the scores for each category
 
-	int upperTotal;
-	int lowerTotal;
-	int grandTotal;
-
 };
 
 

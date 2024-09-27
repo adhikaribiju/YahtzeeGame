@@ -185,6 +185,7 @@
     <ClCompile Include="Combinations.cpp" />
     <ClCompile Include="Computer.cpp" />
     <ClCompile Include="Human.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Round.cpp" />
     <ClCompile Include="Scorecard.cpp" />
     <ClCompile Include="Tournament.cpp" />

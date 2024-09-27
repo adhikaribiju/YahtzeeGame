@@ -2,6 +2,8 @@
 #include "stdafx.h"
 #include "Scorecard.h"
 #include "Combinations.h"
+#include "Human.h"
+#include "Computer.h"
 
 
 class Round {
@@ -12,6 +14,7 @@ public:
 	~Round();
 
 	void playRound(int player_id);
+	void playRoundP(int player_id); // this is a prototype to include the player object
 	void playTurn(int player_id);
 	void playRoll();
 	

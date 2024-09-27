@@ -39,10 +39,6 @@ Round::~Round() {
 
 }
 
-
-
-
-
 void Round::playRound(int player_id) {
 
 	cout << "Round " << numOfRounds << endl;
@@ -186,7 +182,22 @@ void Round::playTurn(int player_id) {
 
 		} while (!hasScored);
 	}
+}
 
+
+void Round::playRoundP(int player) {
+	// A turn consists of maximun of 3 rolls
+
+	Human human; //s create a human object
+	Computer computer; // create a computer object
+
+	if (player_id == 1) {
+		human.playHuman();
+	}
+	else
+	{
+		computer.playComputer();
+	}
 
 }
 
