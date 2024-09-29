@@ -20,7 +20,7 @@ Round::Round() {
 
 //Round::Round(Scorecard sc, int player_id) {
 //
-//	sc.displayScorecard();
+//	sc.'displayScorecard'();
 //	this->player_id = player_id;
 //	this->player_choice = ' ';
 //
@@ -185,20 +185,27 @@ void Round::playTurn(int player_id) {
 }
 
 
-void Round::playRoundP(int player) {
+void Round::playRoundP(int player_id) {
 	// A turn consists of maximun of 3 rolls
 
 	Human human; //s create a human object
 	Computer computer; // create a computer object
 
+
+	cout << "\nRound " << numOfRounds << endl;
+
+
+
 	if (player_id == 1) {
-		human.playHuman();
+		human.playTurn();
+		computer.playTurn();
 	}
 	else
 	{
-		computer.playComputer();
+		computer.playTurn();
+		human.playTurn();
 	}
-
+	numOfRounds++;
 }
 
 int Round::diceIndex(int dice_to_keep) {

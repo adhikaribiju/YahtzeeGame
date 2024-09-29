@@ -15,7 +15,7 @@ Human::~Human(){
 
 }
 
-void Human::playHuman() {
+void Human::playTurn() {
 	cout << "Human is playing....." << endl;
 
 	playRoll(); // Roll the 5 dice randomly
@@ -24,7 +24,8 @@ void Human::playHuman() {
 	Combinations board(dice); // retrive the combinations
 
 	board.displayScorecard(); // display the available combinations
-	board.availableCombinations(); // display the available combinations
+	board.displayAvailableCombinations(); // display the available combinations
+	combinations = board.availableCombinations();
 
 	player_choice = ' '; // to record the player's choice of dice roll
 
@@ -38,16 +39,16 @@ void Human::playHuman() {
 		}
 		if (player_choice == 'Y') {
 			// user wants to re-roll the dice
-			
+			do{
+					reRoll();
+					displayDice();
+					board.updateDice(dice);
+					board.displayAvailableCombinations();
+					combinations = board.availableCombinations();
+			} while (dice_to_keep == -1);
 
-		do{
-				reRoll();
-				displayDice();
-				board.updateDice(dice);
-				board.displayAvailableCombinations();
-		} while (dice_to_keep == -1);
-			num_rolls++;
-			player_choice = ' ';
+		num_rolls++;
+		player_choice = ' ';
 		}
 	}
 	

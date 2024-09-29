@@ -9,6 +9,7 @@ class Combinations : public Scorecard {
 public:
     // Constructor that accepts the dice vector
     Combinations(vector<int>& dice);
+    Combinations();
 
     // Functions to check for various combinations
     bool hasThreeOfAKind();

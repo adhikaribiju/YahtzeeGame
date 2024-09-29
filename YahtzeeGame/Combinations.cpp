@@ -1,5 +1,12 @@
 #include "Combinations.h"
 
+
+Combinations::Combinations() {
+	// Initialize counts to zero
+	for (int i = 1; i <= 6; ++i) {
+		counts[i] = 0;
+	}
+}
 Combinations::Combinations(vector<int>& dice_values) {
     // Counting frequencies of each die face
 
@@ -12,7 +19,6 @@ Combinations::Combinations(vector<int>& dice_values) {
     for (int i = 1; i <= 6; ++i) {
         counts[i] = 0;
     }
-
 }
 
 
@@ -118,7 +124,7 @@ vector<int> Combinations::availableCombinations() {
     for (int i = 1; i <= 6; ++i) {
         int score = calculateUpperSectionScore(i);
         if (score > 0) {
-            available_combinations.push_back(score);
+            available_combinations.push_back(i-1);
         }
     }
 

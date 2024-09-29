@@ -42,17 +42,22 @@ Scorecard::~Scorecard()
 
 void Scorecard::displayScorecard()
 {
-
+	
 	cout << endl;
 	cout << "        Scorecard        " << endl;
 	cout << endl;
-	cout << "----------------------------" << endl;
-	cout << left << "C.N. " << setw(20) << "Category" << setw(10) << "Score" << endl;
-	cout << "----------------------------" << endl;
-
+	cout << "--------------------------------------------------------------" << endl;
+	cout << left << setw(17) << "Category No." << setw(25) << "Category" << setw(10) << "Score" << "Player" << endl;
+	cout << "--------------------------------------------------------------" << endl;
+	string player = " ";
 	for (int i = 0; i < 12; i++) {
-		// Left-align both columns and set field width
-		cout << left << i + 1 << " : " << setw(20) << scoreCard[i].name << setw(10) << scoreCard[i].score << "  " << scoreCard[i].player_id << endl;
+
+		if (scoreCard[i].player_id == 1) player = "You";
+		else if ((scoreCard[i].player_id == 2)) player = "Computer";
+		else player = "X";
+			
+		// Left-align columns and set field width for neat alignment
+		cout << left << setw(17) << i + 1 << setw(25) << scoreCard[i].name << setw(10) << scoreCard[i].score <<player << endl;
 	}
 }
 

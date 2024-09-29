@@ -5,7 +5,13 @@ Player::Player() {
 	player_id = 0; // 1 for human, 2 for computer
 
 	num_rolls = 1;
-	num_of_dice = 0;
+	num_of_dice = 5;
+
+	// initialing the dice vector
+	for (int i = 0; i < num_of_dice; i++)
+	{
+		dice.push_back(0);
+	}
 	
 }
 
@@ -15,7 +21,7 @@ Player::Player(int p_id) {
 	player_id = p_id; // 1 for human, 2 for computer
 	
 	num_rolls = 1;
-	num_of_dice = 0;
+	num_of_dice = 5;
 
 
 }

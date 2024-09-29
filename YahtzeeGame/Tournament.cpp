@@ -53,16 +53,16 @@ void Tournament::startTournament() {
 
 	if (humanRoll > computerRoll)
 	{
-		round.playRound(1);
+		round.playRoundP(1);
 	}
 	else
 	{
-		round.playRound(2);
+		round.playRoundP(2);
 	}
 
 	do {
 		// After the first round, find out the player with the lowest score and send it to the next round to start
-		round.playRound(scorecard.playerWithLowestScore());
+		round.playRoundP(scorecard.playerWithLowestScore());
 		//Round round2(scorecard, 2);
 		//round2.playRound();
 	} while (scorecard.isScorecardFull() == false);

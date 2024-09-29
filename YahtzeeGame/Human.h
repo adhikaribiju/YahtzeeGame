@@ -9,7 +9,7 @@ public:
 	Human();
 	~Human();
 
-	void playHuman();
+	void playTurn();
 	void reRoll();
 	void customFill();
 	void scoreCategory(Combinations board);
