@@ -20,6 +20,12 @@ public:
 
 	void scoreHighestAvailable(); // score the highest points availble currently
 
+	bool isSequentialAvailable(); // if sequential possible by rolling dice, it rolls them and returns true
+
+	//bool isKeptDice(int die); // this function returns true if the given dice index was kept before
+
+
+	void tryYahtzeeOrFullHouse(); // function to roll certain dices to get Yathzee or Full House
 
 private:
 	const int max_rolls = 3;
@@ -35,5 +41,9 @@ private:
 	vector<pair<int,int>> scoresAvailable;
 
 	vector<int> keptDices; // to track the indices of the dice kept and NOT Rolled
+
+	bool keepError;
+
+	bool isScoreSet; // to check if the score has been set
 	 
 };

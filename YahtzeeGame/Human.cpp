@@ -16,7 +16,7 @@ Human::~Human(){
 }
 
 void Human::playTurn() {
-	cout << "Human is playing....." << endl;
+	cout << "\nYou are playing....." << endl;
 
 	playRoll(); // Roll the 5 dice randomly
 	displayDice(); // display the dice values
@@ -55,6 +55,7 @@ void Human::playTurn() {
 	// At this point dice roll has either been completed or the user has chosen not to roll again
 	// Now the user has to choose a category to score IF AVAILABLE
 	scoreCategory(board);
+	cout << "\nYour Turn Ended!" << endl;
 }
 
 
@@ -135,7 +136,9 @@ void Human::scoreCategory(Combinations board) {
 			{
 				// score the category
 				//aval_combinations.setScore(category_choice - 1, dice, player_id);
+				
 				board.setScore(category_choice - 1, player_id);
+				//cout << "You have scored " << board.scoreCard[category_choice - 1].score << " points in the " << board.scoreCard[category_choice - 1].name << " category";
 				hasScored = true;
 			}
 

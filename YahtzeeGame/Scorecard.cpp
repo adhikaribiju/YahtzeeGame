@@ -118,7 +118,7 @@ int Scorecard::playerWithLowestScore()
 
 bool Scorecard::isCategoryFill(int category)
 {
-	if (scoreCard[category].player_id == 0) {
+	if (scoreCard[category].score == 0) { // changed from player_id to score
 		return false;
 	}
 	else {

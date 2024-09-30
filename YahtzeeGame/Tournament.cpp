@@ -69,8 +69,21 @@ void Tournament::startTournament() {
 
 	// The round will continue until both players have played
 
-
-
+	// Displaying the final scorecard
+	cout << endl;
+	scorecard.displayScorecard();
+	// Displaying the winner
+	cout << "\n---------------------------" << endl;
+	if (scorecard.getTotal(1) > scorecard.getTotal(2)) {
+		cout << "You win!" << endl;
+	}
+	else if (scorecard.getTotal(1) < scorecard.getTotal(2)) {
+		cout << "Computer wins!" << endl;
+	}
+	else {
+		cout << "It's a tie!" << endl;
+	}
+	cout << "---------------------------" << endl;
 
 }
 

@@ -170,7 +170,9 @@ void Combinations::displayAvailableCombinations() {
     // Upper Section (Aces to Sixes)
     for (int i = 1; i <= 6; ++i) {
         int score = calculateUpperSectionScore(i);
-        if (score != 0) cout << "Score for " << i << "s: " << score << endl;
+        if (score != 0 && !isCategoryFill(i-1)) {
+            cout << "Category No. " << i << ": Score for " << scoreCard[i - 1].name << "s : " << score << endl;
+        }
     }
     cout << endl;
 
@@ -178,32 +180,32 @@ void Combinations::displayAvailableCombinations() {
 
     // Check for Three of a Kind
     if (hasThreeOfAKind() && !isCategoryFill(6)) {
-        cout << "Three of a Kind available! Score: " << totalDice << endl;
+        cout << "Category No. 7: Three of a Kind available! Score: " << totalDice << endl;
     }
 
     // Check for Four of a Kind
     if (hasFourOfAKind() && !isCategoryFill(7)) {
-        cout << "Four of a Kind available! Score: " << totalDice << endl;
+        cout << "Category No. 8: Four of a Kind available! Score: " << totalDice << endl;
     }
 
     // Check for Full House
     if (hasFullHouse() && !isCategoryFill(8)) {
-        cout << "Full House available! Score: 25" << endl;
+        cout << "Category No. 9: Full House available! Score: 25" << endl;
     }
 
     // Check for Small Straight
     if (hasFourStraight() && !isCategoryFill(9)) {
-        cout << "Four Straight available! Score: 30" << endl;
+        cout << "Category No. 10: Four Straight available! Score: 30" << endl;
     }
 
     // Check for Large Straight
     if (hasFiveStraight() && !isCategoryFill(10)) {
-        cout << "Five Straight available! Score: 40" << endl;
+        cout << "Category No. 11: Five Straight available! Score: 40" << endl;
     }
 
     // Check for Yahtzee
     if (hasYahtzee()  && !isCategoryFill(11)) {
-        cout << "Yahtzee! Score: 50" << endl;
+        cout << "Category No. 12: Yahtzee! Score: 50" << endl;
     }
 }
 
@@ -233,8 +235,7 @@ void Combinations::countDiceFace() {
 }
 
 
-bool Combinations::setScore(int category, int player_id)
-{
+bool Combinations::setScore(int category, int player_id){
     int score=0;
     int isValid = true;
 
@@ -298,8 +299,11 @@ bool Combinations::setScore(int category, int player_id)
 	else {
 		return false;
     }
+
 	
     scoreCard[category].score = score;
 	scoreCard[category].player_id = player_id;
+    cout << "Scored : " << score << " points " << " at the category " << scoreCard[category].name;
+    
     return true;
 }
