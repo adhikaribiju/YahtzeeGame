@@ -1,6 +1,7 @@
 #include "Round.h"
 
-//int Round::numOfRounds;
+
+int Round::numOfRounds = 1;
 
 Round::Round() {
 
@@ -13,7 +14,7 @@ Round::Round() {
 	}
 
 	//scorecard = sc;
-	numOfRounds = 1;
+	//numOfRounds = 1;
 
 }
 
@@ -205,6 +206,15 @@ void Round::playRoundP(int player_id) {
 		computer.playTurn();
 		human.playTurn();
 	}
+
+	if (isSaveGame()) {
+		Serialization serialize;
+		if (serialize.saveGame()) {
+			cout << "Game saved!" << endl;
+			exit(0); // Exit the program
+		}
+	}
+
 	numOfRounds++;
 }
 
@@ -244,4 +254,37 @@ void Round::displayDice() {
 	cout << endl;
 }
 
+
+const int Round::getRoundNo() {
+	return numOfRounds;
+}
+
+bool Round::isSaveGame() {
+
+	string save_game;
+
+	// Keep asking until a valid response is provided
+	do {
+		cout << "Do you wish to save the game? (Y/N): ";
+		cin >> save_game;
+
+		// Check if the input is exactly one character
+		if (save_game.length() == 1) {
+			char answer = tolower(save_game[0]); // Convert to lowercase for uniformity
+
+			// Validate the response
+			if (answer == 'y') {
+				cout << "Saving now..." << endl;
+				return true;
+			}
+			else if (answer == 'n') {
+				return false;
+			}
+		}
+
+		// If the input is not valid, show an error and loop again
+		cout << "Invalid input. Please enter Y/N only." << endl;
+
+	} while (true); // Loop until a valid response is given
+}
 

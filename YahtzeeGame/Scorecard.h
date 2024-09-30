@@ -1,11 +1,13 @@
 #pragma once
 
 #include "stdafx.h"
+//#include "Round.h"
 
 struct card {
 	string name;
 	int score;
 	int player_id;
+	int round_no;
 };
 
 

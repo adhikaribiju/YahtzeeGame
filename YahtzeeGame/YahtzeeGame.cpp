@@ -27,6 +27,7 @@ int main()
 	}
 	else if (choice == 2) {
 		cout << "Loading a saved game..." << endl;
+		game.loadTournament();
 	}
 	else if (choice == 3) {
 		cout << "Exiting..." << endl;

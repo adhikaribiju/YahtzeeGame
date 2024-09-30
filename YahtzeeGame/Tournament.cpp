@@ -69,24 +69,71 @@ void Tournament::startTournament() {
 
 	// The round will continue until both players have played
 
-	// Displaying the final scorecard
+	// Display the winner of the tournament
 	cout << endl;
 	scorecard.displayScorecard();
+	displayWinner(scorecard.getTotal(1), scorecard.getTotal(2));
+
+}
+
+void Tournament::endTournament() {
+
+}
+
+void Tournament::loadTournament() {
+	
+	string fileName;
+
+	cout << "Enter the file name: ";
+	cin >> fileName;
+
+	// Validate if the file exists
+	if (!serialize.validateFile(fileName)) {
+		cerr << "Error: File not found." << endl;
+	}
+
+	// Process the file 
+	if (!serialize.readFile(fileName)) {
+		cerr << "Error processing file." << endl;
+	}
+	else {
+		// Display the scorecard
+		serialize.displayLoadedScorecard();
+
+		Scorecard scorecard;
+		Round round;
+		round.numOfRounds = serialize.getCurrentRound();
+		
+	do {
+		// After the first round, find out the player with the lowest score and send it to the next round to start
+		round.playRoundP(scorecard.playerWithLowestScore());
+		//Round round2(scorecard, 2);
+		//round2.playRound();
+	} while (scorecard.isScorecardFull() == false);
+
+	// The round will continue until both players have played
+
+	// Display the winner of the tournament
+	cout << endl;
+	scorecard.displayScorecard();
+	displayWinner(scorecard.getTotal(1), scorecard.getTotal(2));
+
+	}
+}
+
+void Tournament::displayWinner(int p1, int p2) {
+	// Displaying the final scorecard
+	
 	// Displaying the winner
 	cout << "\n---------------------------" << endl;
-	if (scorecard.getTotal(1) > scorecard.getTotal(2)) {
+	if (p1 > p2) {
 		cout << "You win!" << endl;
 	}
-	else if (scorecard.getTotal(1) < scorecard.getTotal(2)) {
+	else if (p1 < p2) {
 		cout << "Computer wins!" << endl;
 	}
 	else {
 		cout << "It's a tie!" << endl;
 	}
 	cout << "---------------------------" << endl;
-
-}
-
-void Tournament::endTournament() {
-
 }

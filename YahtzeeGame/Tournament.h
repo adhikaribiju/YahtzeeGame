@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "Round.h"
 #include "Scorecard.h"
+#include "Serialization.h"
 
 class Tournament {
 public:
@@ -10,7 +11,10 @@ public:
 
 	// functions here
 	void startTournament();
+	void loadTournament();
 	void endTournament();
+
+	void displayWinner(int p1, int p2);
 
 
 private:
@@ -20,7 +24,7 @@ private:
 
 	// variables here
 
-
+	Serialization serialize;
 
 
 

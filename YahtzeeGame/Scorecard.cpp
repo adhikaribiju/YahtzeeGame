@@ -5,18 +5,18 @@
 //vector<card> Scorecard::scoreCard;
 
 vector<card>Scorecard::scoreCard = {
-	{"Aces", 0, 0},
-	{"Twos", 0, 0},
-	{"Threes", 0, 0},
-	{"Fours", 0, 0},
-	{"Fives", 0, 0},
-	{"Sixes", 0, 0},
-	{"Three of a Kind", 0, 0},
-	{"Four of a Kind", 0, 0},
-	{"Full House", 0, 0},
-	{"Four Straight", 0, 0},
-	{"Five Straight", 0, 0},
-	{"Yahtzee", 0, 0}
+	{"Aces", 0, 0, 0},
+	{"Twos", 0, 0, 0},
+	{"Threes", 0, 0, 0},
+	{"Fours", 0, 0, 0},
+	{"Fives", 0, 0, 0},
+	{"Sixes", 0, 0, 0},
+	{"Three of a Kind", 0, 0, 0},
+	{"Four of a Kind", 0, 0, 0},
+	{"Full House", 0, 0, 0},
+	{"Four Straight", 0, 0, 0},
+	{"Five Straight", 0, 0, 0},
+	{"Yahtzee", 0, 0, 0}
 };
 
 Scorecard::Scorecard()
@@ -44,27 +44,29 @@ void Scorecard::displayScorecard()
 {
 	
 	cout << endl;
-	cout << "        Scorecard        " << endl;
+	cout << "\t\t\tScorecard" << endl;
 	cout << endl;
-	cout << "--------------------------------------------------------------" << endl;
-	cout << left << setw(17) << "Category No." << setw(25) << "Category" << setw(10) << "Score" << "Player" << endl;
-	cout << "--------------------------------------------------------------" << endl;
+	cout << "-------------------------------------------------------------------------" << endl;
+	cout << left << setw(17) << "Category No." << setw(25) << "Category" << setw(10) << "Score" << setw(10) << "Player" << setw(10) << "Round" << endl;
+	cout << "-------------------------------------------------------------------------" << endl;
 	string player = " ";
 	for (int i = 0; i < 12; i++) {
 
 		if (scoreCard[i].player_id == 1) player = "You";
-		else if ((scoreCard[i].player_id == 2)) player = "Computer";
+		else if (scoreCard[i].player_id == 2) player = "Computer";
 		else player = "X";
-			
+
 		// Left-align columns and set field width for neat alignment
-		cout << left << setw(17) << i + 1 << setw(25) << scoreCard[i].name << setw(10) << scoreCard[i].score <<player << endl;
+		cout << left << setw(17) << i + 1 << setw(25) << scoreCard[i].name << setw(10) << scoreCard[i].score << setw(10) << player << setw(10) << scoreCard[i].round_no << endl;
 	}
+
 }
 
 
 // getter and setters for scores
 void Scorecard::setScore(int category, int score, int player_id)
 {
+	
 	//scores[category] = score;
 	scoreCard[category].score = score;
 	scoreCard[category].player_id = player_id;

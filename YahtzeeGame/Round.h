@@ -4,6 +4,7 @@
 #include "Combinations.h"
 #include "Human.h"
 #include "Computer.h"
+#include "Serialization.h"
 
 
 class Round {
@@ -21,9 +22,14 @@ public:
 
 	int diceIndex(int dice_to_keep);
 	void displayDice();
+	bool isSaveGame(); // returns true if user decides to save game
+	//bool isFileSave(); // returns true if file is saved successfully
+
+	const int getRoundNo();
 
 //	Scorecard scorecard; // to view/change the scorecard
 
+	static int numOfRounds; // to track the number of rounds played;
 
 private:
 	int player_id;
@@ -34,7 +40,7 @@ private:
 	vector<int> dice; // to record the dice values
 	int num_of_dice = 5; // to record the number of dice
 
-	int numOfRounds; // to track the number of rounds played;
+	
 
 	
 };

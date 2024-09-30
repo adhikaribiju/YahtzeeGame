@@ -1,5 +1,5 @@
 #include "Combinations.h"
-
+#include "Round.h"
 
 Combinations::Combinations() {
 	// Initialize counts to zero
@@ -300,9 +300,10 @@ bool Combinations::setScore(int category, int player_id){
 		return false;
     }
 
-	
+    Round r;
     scoreCard[category].score = score;
 	scoreCard[category].player_id = player_id;
+	scoreCard[category].round_no = r.getRoundNo();
     cout << "Scored : " << score << " points " << " at the category " << scoreCard[category].name;
     
     return true;

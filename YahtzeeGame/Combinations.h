@@ -3,7 +3,6 @@
 #include "Scorecard.h"
 
 
-//class Scorecard; // Forward declaration of Scorecard
 
 class Combinations : public Scorecard {
 public:
