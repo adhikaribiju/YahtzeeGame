@@ -6,8 +6,9 @@
 
 class Player {
 public:
-	Player(int p_id);
+
 	Player();
+	Player(int p_id);
 	~Player();
 
 
@@ -18,21 +19,14 @@ public:
 
 
 protected:
+	const int MAX_ROLLS = 3;
+	const int DICE_COUNT = 5;
 
 	int player_id; // 1 for human, 2 for computer
-
-	const int max_rolls = 3;
 	int num_rolls;
-	int num_of_dice;
-	char player_choice = ' ';
+	char player_choice;
 
 	vector<int> dice;
-
-	
 	vector<int> combinations; // to store the available unsocred categories as per the dice 
-
-	//Combinations board;
-
-	
 
 };

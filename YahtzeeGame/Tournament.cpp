@@ -4,7 +4,6 @@
 Tournament::Tournament() {
 	humanRoll = 0;
 	computerRoll = 0;
-
 }
 
 Tournament::~Tournament() {
@@ -14,7 +13,7 @@ Tournament::~Tournament() {
 void Tournament::startTournament() {
 
 	Scorecard scorecard;
-	//Round round(scorecard);
+
 	Round round;
 	// Roll dice and determine who starts first - Human or Computer
 	cout << "\nLet's roll the dice to see who gets the highest!\n" << endl;
@@ -47,27 +46,22 @@ void Tournament::startTournament() {
 	} while (humanRoll == computerRoll);
 
 	// After determining who starts first, the round will begin with that winning player
-	// For the testing purpose, we will only have human play
-
-
 
 	if (humanRoll > computerRoll)
 	{
-		round.playRoundP(1);
+		round.playRound(HUMAN);
 	}
 	else
 	{
-		round.playRoundP(2);
+		round.playRound(COMPUTER);
 	}
 
 	do {
 		// After the first round, find out the player with the lowest score and send it to the next round to start
-		round.playRoundP(scorecard.playerWithLowestScore());
-		//Round round2(scorecard, 2);
-		//round2.playRound();
-	} while (scorecard.isScorecardFull() == false);
+		round.playRound(scorecard.playerWithLowestScore());
+	} while (!scorecard.isScorecardFull());
 
-	// The round will continue until both players have played
+	// The round will continue until both players have played // scorecard is full
 
 	// Display the winner of the tournament
 	cout << endl;
@@ -76,9 +70,6 @@ void Tournament::startTournament() {
 
 }
 
-void Tournament::endTournament() {
-
-}
 
 void Tournament::loadTournament() {
 	
@@ -106,9 +97,8 @@ void Tournament::loadTournament() {
 		
 	do {
 		// After the first round, find out the player with the lowest score and send it to the next round to start
-		round.playRoundP(scorecard.playerWithLowestScore());
-		//Round round2(scorecard, 2);
-		//round2.playRound();
+		round.playRound(scorecard.playerWithLowestScore());
+
 	} while (scorecard.isScorecardFull() == false);
 
 	// The round will continue until both players have played
@@ -121,15 +111,17 @@ void Tournament::loadTournament() {
 	}
 }
 
-void Tournament::displayWinner(int p1, int p2) {
+void Tournament::displayWinner(int player1, int player2) {
 	// Displaying the final scorecard
+	cout << "\n\nYour Score: " << player1 << endl;
+	cout << "Computer's Score: " << player2 << endl;
 	
 	// Displaying the winner
 	cout << "\n---------------------------" << endl;
-	if (p1 > p2) {
+	if (player1 > player2) {
 		cout << "You win!" << endl;
 	}
-	else if (p1 < p2) {
+	else if (player1 < player2) {
 		cout << "Computer wins!" << endl;
 	}
 	else {

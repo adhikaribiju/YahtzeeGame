@@ -3,27 +3,26 @@
 
 Combinations::Combinations() {
 	// Initialize counts to zero
-	for (int i = 1; i <= 6; ++i) {
+	for (int i = 1; i <= MAX_DICE_VALUE; ++i) {
 		counts[i] = 0;
 	}
 }
 Combinations::Combinations(vector<int>& dice_values) {
     // Counting frequencies of each die face
 
-
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < DICE_COUNT; i++) {
         dice.push_back(dice_values[i]);
     }
 
     // Initialize counts to zero
-    for (int i = 1; i <= 6; ++i) {
+    for (int i = 1; i <= MAX_DICE_VALUE; ++i) {
         counts[i] = 0;
     }
 }
 
 
-bool Combinations::hasThreeOfAKind() {
-    for (int i = 1; i <= 6; ++i) {
+bool Combinations::hasThreeOfAKind() const {
+    for (int i = 1; i <= MAX_DICE_VALUE; ++i) {
         if (counts[i] >= 3) {
             return true;
         }
@@ -31,8 +30,8 @@ bool Combinations::hasThreeOfAKind() {
     return false;
 }
 
-bool Combinations::hasFourOfAKind() {
-    for (int i = 1; i <= 6; ++i) {
+bool Combinations::hasFourOfAKind() const {
+    for (int i = 1; i <= MAX_DICE_VALUE; ++i) {
         if (counts[i] >= 4) {
             return true;
         }
@@ -40,8 +39,8 @@ bool Combinations::hasFourOfAKind() {
     return false;
 }
 
-bool Combinations::hasYahtzee() {
-    for (int i = 1; i <= 6; ++i) {
+ bool Combinations::hasYahtzee() const {
+    for (int i = 1; i <= MAX_DICE_VALUE; ++i) {
         if (counts[i] == 5) {
             return true;
         }
@@ -49,10 +48,10 @@ bool Combinations::hasYahtzee() {
     return false;
 }
 
-bool Combinations::hasFullHouse() {
+ bool Combinations::hasFullHouse() const {
     bool hasThree = false;
     bool hasTwo = false;
-    for (int i = 1; i <= 6; ++i) {
+    for (int i = 1; i <= MAX_DICE_VALUE; ++i) {
         if (counts[i] == 3) {
             hasThree = true;
         }
@@ -67,7 +66,7 @@ bool Combinations::hasFullHouse() {
     return hasThree && hasTwo;
 }
 
-bool Combinations::hasFourStraight() {
+ bool Combinations::hasFourStraight() const {
     // Possible sequences: 1-2-3-4, 2-3-4-5, 3-4-5-6
 
     // Check for sequence 1-2-3-4
@@ -85,7 +84,7 @@ bool Combinations::hasFourStraight() {
     return false;
 }
 
-bool Combinations::hasFiveStraight() {
+ bool Combinations::hasFiveStraight() const {
     // Possible sequences: 1-2-3-4-5, 2-3-4-5-6
 
     // Check for sequence 1-2-3-4-5
@@ -121,7 +120,7 @@ vector<int> Combinations::availableCombinations() {
     available_combinations.clear();
     countDiceFace();
     // Upper Section (Aces to Sixes)
-    for (int i = 1; i <= 6; ++i) {
+    for (int i = 1; i <= MAX_DICE_VALUE; ++i) {
         int score = calculateUpperSectionScore(i);
         if (score > 0) {
             available_combinations.push_back(i-1);
@@ -171,7 +170,7 @@ void Combinations::displayAvailableCombinations() {
  
 
     // Upper Section (Aces to Sixes)
-    for (int i = 1; i <= 6; ++i) {
+    for (int i = 1; i <= MAX_DICE_VALUE; ++i) {
         int score = calculateUpperSectionScore(i);
         if (score != 0 && !isCategoryFill(i-1)) {
             cout << "Category No. " << i << ": Score for " << scoreCard[i - 1].name << " : " << score << endl;
@@ -216,7 +215,7 @@ void Combinations::displayAvailableCombinations() {
 
 void Combinations::updateDice(vector<int>& dice_values) {
     dice.clear();
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < DICE_COUNT; i++) {
         dice.push_back(dice_values[i]);
     }
 }

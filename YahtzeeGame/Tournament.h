@@ -9,24 +9,18 @@ public:
 	Tournament();
 	~Tournament();
 
-	// functions here
-	void startTournament();
-	void loadTournament();
-	void endTournament();
+	void startTournament(); // starts the tournament
+	void loadTournament(); // loads a tournament from a file
 
-	void displayWinner(int p1, int p2);
+	void displayWinner(int player1, int player2);
 
 
 private:
+	const int HUMAN = 1; // to represent the human player || This is the id for the human player
+	const int COMPUTER = 2; // to represent the computer player || This is the id for the computer player
 
-	int humanRoll;
-	int computerRoll;
-
-	// variables here
-
-	Serialization serialize;
-
-
-
-
+	int humanRoll; // to store the human player's roll during the first round
+	int computerRoll; // to store the human player's roll during the first round
+	Serialization serialize; // to save and load the game
+	
 };

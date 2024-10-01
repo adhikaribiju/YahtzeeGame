@@ -27,11 +27,8 @@ Scorecard::Scorecard()
 		"Full House", "Four Straight", "Five Straight",
 		"Yahtzee" };
 
-	// initialize the scores
-	scores = {};
-
-	// initialize the scorecard
-
+	
+	scores = {}; // initialize the scores
 
 }
 
@@ -63,11 +60,10 @@ void Scorecard::displayScorecard()
 }
 
 
-// getter and setters for scores
+// setters for scores
 void Scorecard::setScore(int category, int score, int player_id)
 {
 	
-	//scores[category] = score;
 	scoreCard[category].score = score;
 	scoreCard[category].player_id = player_id;
 }

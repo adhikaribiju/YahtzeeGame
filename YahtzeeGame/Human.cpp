@@ -33,7 +33,7 @@ void Human::playTurn() {
 	keepDice.clear(); // clear the vector to store the dice that are kept
 	player_choice = ' '; // to record the player's choice of dice roll
 
-	while (num_rolls < max_rolls && player_choice != 'N') {
+	while (num_rolls < MAX_ROLLS && player_choice != 'N') {
 		cout << "\n\nDo you wish to roll again(Y/N):" << endl;
 		cout << "Enter Y to roll again" << endl;
 		cout << "Enter N to stand" << endl;
@@ -77,7 +77,7 @@ void Human::playTurn() {
 
 void Human::customFill() {
 	// we are asking the user to fill in the dice array
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < DICE_COUNT; i++) {
 		do {
 			cout << "Enter the value for dice " << i + 1 << " : ";
 			cin >> dice_num;
@@ -243,7 +243,7 @@ void Human::reRoll() {
                 } while (choice != "N" && choice != "n" && choice != "Y" && choice != "y");
 
                 // Now add only the unrolled dice (those not in dice_to_reroll) to keepDice
-                for (int i = 0; i < num_of_dice; i++) {
+                for (int i = 0; i < DICE_COUNT; i++) {
                     // If the dice index is not in dice_to_reroll and not in keepDice already, add it to keepDice
                     if (find(dices_toreroll.begin(), dices_toreroll.end(), i) == dices_toreroll.end() &&
                         find(keepDice.begin(), keepDice.end(), i) == keepDice.end()) {
@@ -353,9 +353,7 @@ void Human::viewHelp(vector<int>& dice) {
 				//helpShown = true;
 			//}
 
-            if (!helpShown) cout << "Try rolling all available dice since there are limited options at the moment." << endl;
-
-
+            if (!helpShown) cout << "Try rolling all available dice since there are limited/no options at the moment." << endl;
 
         }
         else if (choice == "N" || choice == "n") {
@@ -376,7 +374,7 @@ bool Human::helpStrategy(vector<int>& dice) {
 	helpShown = false;
 	help_board.updateDice(dice);
 
-	for (int i = availableScores.size() - 1; i >= 0; i--) {
+	for (int i = static_cast<int>(availableScores.size()) - 1; i >= 0; i--) { // possible loss of data without that cast
 		if (availableScores[i].second >= 20 && !help_board.isCategoryFill(availableScores[i].first)) {
 			cout << "Category No. " << availableScores[i].first + 1 << " is recommended for scoring since it scores the highest." << endl;
 			helpShown = true;
@@ -409,7 +407,7 @@ bool Human::helpStrategy(vector<int>& dice) {
 		else {
 			// At this point, check if score availble is >=10
 			// If Yes, Score it
-			for (int i = availableScores.size() - 1; i >= 0; i--) {
+			for (int i = static_cast<int>(availableScores.size()) - 1; i >= 0; i--) {
 				if (availableScores[i].second >= 10 && !help_board.isCategoryFill(availableScores[i].first)) {
 					cout << "Try scoring Category No: " << availableScores[i].first + 1 << " since it scores " << availableScores[i].second << endl;
 					helpShown = true;
@@ -418,7 +416,7 @@ bool Human::helpStrategy(vector<int>& dice) {
 			}
 			// If Not, check 3 or 4 of kind available
 			if (!helpShown) {
-				for (int i = availableScores.size() - 1; i >= 0; i--) {
+				for (int i = static_cast<int>(availableScores.size()) - 1; i >= 0; i--) {
 					// if 3/4 of a kind available, score it NO MATTER HOW SMALL THE SCORE
 					if (availableScores[i].first + 1 == 7 || availableScores[i].first + 1 == 8) {
 						cout << "You can try scoring " << "the 3/4 of a kind available since it scores " << availableScores[i].first << " points." << endl;
@@ -468,7 +466,7 @@ bool Human::lowerSectionFilled() {
 
 void Human::displayHighestScore()
 {
-	for (int i = availableScores.size() - 1; i >= 0; i--) {
+	for (int i = static_cast<int>(availableScores.size()) - 1; i >= 0; i--) {
 		if (!help_board.isCategoryFill(availableScores[i].first)) {
 			cout << "Category No. " << availableScores[i].first + 1 << " is recommended for scoring since it scores the highest." << endl;
 			helpShown = true;
@@ -622,7 +620,7 @@ void Human::tryYahtzee() {
 		}
 	}
 
-	if (dicelist.size() == 5) {
+	if (dicelist.size() == DICE_COUNT) {
 		cout << "You can try rolling all available dices. " << endl;
 		helpShown = true;
 	}

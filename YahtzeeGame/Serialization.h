@@ -9,17 +9,17 @@ public:
 	Serialization();
 	~Serialization();
 
-	bool saveGame();
-	void loadGame();
+
+	int getCurrentRound();
 
 	// to check if the file exists 
 	bool validateFile(const string& fileName);
-
 	// to process the file
 	bool readFile(const string& fileName);
 
+	bool saveGame();
+	void loadGame();
 	void displayLoadedScorecard();
-	int getCurrentRound();
 
 	Scorecard scorecard;
 

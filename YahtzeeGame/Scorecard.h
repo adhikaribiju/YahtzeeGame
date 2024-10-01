@@ -18,21 +18,18 @@ public:
 	Scorecard();
 	~Scorecard();
 
-	void displayScorecard();
-
 	int getCategoryScore(int category);
 	int getTotal(int player_id);
 
 	bool isScorecardFull();
 	bool isCategoryFill(int category_id);
+	int playerWithLowestScore(); // returns the player with the lowest score
 
 	void setScore(int category_id, int score, int player_id);
 
-	int playerWithLowestScore(); // returns the player with the lowest score
+	void displayScorecard();
 
-	//void setScore(int category, vector<int>& dice, int player_id);
-
-	static vector<card> scoreCard;
+	static vector<card> scoreCard; // to record the scores for each category
 
 	
 

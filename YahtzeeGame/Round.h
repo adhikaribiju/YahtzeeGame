@@ -9,38 +9,28 @@
 
 class Round {
 public:
-	//Round(Scorecard scorecard);
+
 	Round();
-//	Round(Scorecard scorecard, int player_id);
 	~Round();
 
-	void playRound(int player_id);
-	void playRoundP(int player_id); // this is a prototype to include the player object
-	void playTurn(int player_id);
-	void playRoll();
-	
-
-	int diceIndex(int dice_to_keep);
-	void displayDice();
 	bool isSaveGame(); // returns true if user decides to save game
-	//bool isFileSave(); // returns true if file is saved successfully
+	const int getRoundNo(); // returns the number of rounds played
+	int diceIndex(int dice_to_keep); // returns the index of the dice to keep
 
-	const int getRoundNo();
-
-//	Scorecard scorecard; // to view/change the scorecard
+	void playRound(int player_id); // starts a round consisting of two turns
+	void displayDice(); // displays the dice values
 
 	static int numOfRounds; // to track the number of rounds played;
 
 private:
+	
+	const int NUM_OF_DICE = 5; // to record the number of dice
+
 	int player_id;
 	char player_choice; // to record the player's choice of dice roll
-	int max_rolls = 3; // to record the maximum number of rolls allowed in a turn
-	int num_rolls = 1; // to record the number of rolls taken in a turn
+	int num_rolls; // to record the number of rolls taken in a turn
 
 	vector<int> dice; // to record the dice values
-	int num_of_dice = 5; // to record the number of dice
-
 	
 
-	
 };

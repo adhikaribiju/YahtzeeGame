@@ -18,7 +18,7 @@ void Computer::playTurn() {
 
 	isScoreSet = false;
 
-	playRoll(); // Roll the 5 dice randomly OR manually  // THIS NEEDS OVERRIDING..
+	playRoll(); // Roll the 5 dice randomly OR manually
 	displayDice(); // display the dice values
 
 	board.updateDice(dice); // retrive the combinations
@@ -82,7 +82,7 @@ void Computer::findCategoryScore() {
 	scoresAvailable.clear();
 	if (availableCategory.size() != 0) {
 
-		for (int i = 1; i <= 6; i++)
+		for (int i = 1; i <= DICE_COUNT; i++)
 		{
 			int score = board.calculateUpperSectionScore(i);
 			if (score != 0) scoresAvailable.push_back({ i-1, score });
