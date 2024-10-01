@@ -15,6 +15,15 @@ public:
 	void scoreCategory(Combinations board);
 
 
+	// Below are the functions that are used to help the user
+	void findScorebyCategory();
+	void viewHelp(vector<int>& dice);
+	bool helpStrategy(vector<int>& dice); // provides help in choosing the max score
+	bool lowerSectionFilled(); // to check if the lower section is filled
+	void displayHighestScore(); // to display the highest possible score
+	void tryYahtzee(); // to see if Yahtzee is possible
+	bool isSequentialAvailable(); // to check if a sequential is possible
+
 private:
 	string user_dice; // to store the user's input
 	int dice_to_reroll; //to store the user's dice that they wish to keep
@@ -22,4 +31,8 @@ private:
 	int category_choice; 
 	vector<int> keepDice; // this vector holds the dice that are kept
 	int diceLocation; // to record the index of the dice to Roll/keep
+	vector<pair<int, int>> availableScores; // to store the available scores for the categories
+	Combinations help_board; // retrive the combinations
+	bool helpShown; // to check if the help has been shown
+	bool keepFlag; // to check if the dice has been kept || Used for providing help
 };

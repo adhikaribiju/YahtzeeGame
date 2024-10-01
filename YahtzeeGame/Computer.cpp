@@ -145,7 +145,7 @@ bool Computer::computerDecide() {
 				// Do we have any category in dice right now?
 				// If yes, score the highest available
 				// If not, roll all dice
-				if (availableCategory.size() == 0)
+				if (!availableCategory.empty())
 				{
 					scoreHighestAvailable();
 					return true; // category selected
