@@ -34,7 +34,7 @@ bool Serialization::saveGame()
     }
 
     // Write the current round number
-    outFile << "Round: " << current_round.numOfRounds << endl;
+    outFile << "Round: " << current_round.numOfRounds-1 << endl;
     outFile << endl;  // Add an empty line
     outFile << "Scorecard:" << endl;
 

@@ -10,12 +10,10 @@ public:
 	Player();
 	~Player();
 
-	//????void setScore(int score);
-
 
 	// All the dice functions
 	void playRoll();
-	int diceIndex(int dice_to_keep);
+	vector<int> diceIndex(int dice_to_reroll); // returns vector of indices with the given number
 	void displayDice();
 
 
@@ -30,6 +28,7 @@ protected:
 
 	vector<int> dice;
 
+	
 	vector<int> combinations; // to store the available unsocred categories as per the dice 
 
 	//Combinations board;

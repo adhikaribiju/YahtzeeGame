@@ -167,14 +167,17 @@ void Combinations::displayAvailableCombinations() {
     }
     cout << "\n\n";
 
+    cout <<"Potential categories to score (if any): \n" << endl;
+ 
+
     // Upper Section (Aces to Sixes)
     for (int i = 1; i <= 6; ++i) {
         int score = calculateUpperSectionScore(i);
         if (score != 0 && !isCategoryFill(i-1)) {
-            cout << "Category No. " << i << ": Score for " << scoreCard[i - 1].name << "s : " << score << endl;
+            cout << "Category No. " << i << ": Score for " << scoreCard[i - 1].name << " : " << score << endl;
         }
     }
-    cout << endl;
+    
 
     int totalDice = sumAllDice();
 
@@ -304,7 +307,20 @@ bool Combinations::setScore(int category, int player_id){
     scoreCard[category].score = score;
 	scoreCard[category].player_id = player_id;
 	scoreCard[category].round_no = r.getRoundNo();
-    cout << "Scored : " << score << " points " << " at the category " << scoreCard[category].name;
+    cout << "\nScored : " << score << " points " << " at the category " << scoreCard[category].name;
     
     return true;
+}
+
+
+bool Combinations::hasScoreableCategory() {
+
+    vector <int> available = availableCombinations();
+    // make sure none of them has been scored
+    for (int i = 0; i < available.size(); i++) {
+        if (scoreCard[available[i]].score == 0) {
+            return true;
+        }
+    }
+    return false;
 }

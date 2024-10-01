@@ -63,7 +63,7 @@ void Computer::playTurn() {
 	if (!isScoreSet) cout << "Nothing to score, so skipping turn" << endl;
 
 
-	cout << "\nComputer's Turn Ended!" << endl;
+	cout << "\n\nComputer's Turn Ended!" << endl;
 
 
 	//{Computer gets 2 more rolls to come up with the category to score}
@@ -303,7 +303,7 @@ bool Computer::isSequentialAvailable()
 				playRoll();
 				board.updateDice(dice);
 			}
-			}
+		}
 		return true;  // Sequence was found and dice were kept/rolled
 	}
 
@@ -399,6 +399,7 @@ void Computer::tryYahtzeeOrFullHouse() {
 			anyRolled = true;
 		}
 	}
+	cout << endl;
 
 	if (anyRolled) {
 		board.updateDice(dice);

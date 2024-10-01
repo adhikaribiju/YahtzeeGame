@@ -17,7 +17,9 @@ public:
 
 private:
 	string user_dice; // to store the user's input
-	int dice_to_keep; //to store the user's dice that they wish to keep
+	int dice_to_reroll; //to store the user's dice that they wish to keep
 	int dice_num; // used for testing to specify the exact number in each dice
 	int category_choice; 
+	vector<int> keepDice; // this vector holds the dice that are kept
+	int diceLocation; // to record the index of the dice to Roll/keep
 };

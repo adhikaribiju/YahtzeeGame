@@ -46,24 +46,54 @@ void Player::playRoll() {
 
 	srand((unsigned)time(0));
 
-	// genrate random number for five dice
-	for (int i = 0; i < num_of_dice; i++) {
-		dice[i] = ((rand() % 6) + 1);
-	}
+	string choice = " ";
+	cin.ignore();
 
-	cout << endl;
-	// display the dice values
+	do {
+		cout << "Do you wish to manually input all dices? (Y/N)" << endl;
+		getline(cin, choice);
+
+		if (choice == "Y" || choice == "y")
+		{
+			for (int i = 0; i < num_of_dice; i++) {
+				do {
+					cout << "Enter the value for dice " << i + 1 << " : ";
+					cin >> dice[i];
+					if (dice[i] < 1 && dice[i]> 6)
+					{
+						cout << "Invalid entry! Enter values from 1-6 " << endl;
+					}
+				} while (dice[i] < 1 && dice[i]> 6);
+			}
+		}
+		else if (choice == "N" || choice == "n")
+		{
+			cout << "Rolling the dice randomly..." << endl;
+			// genrate random number for five dice
+			for (int i = 0; i < num_of_dice; i++) {
+				dice[i] = ((rand() % 6) + 1);
+			}
+		}
+		else
+		{
+			cout << "Invalid entry! Enter Y or N " << endl;
+		}
+	} while (choice != "N" && choice != "n" && choice != "Y" && choice != "y");
+
+
 }
 
 
-int Player::diceIndex(int dice_to_keep) {
+vector<int> Player::diceIndex(int dice_to_reroll) {
+	vector<int> recordIndices;
 	// find the index of the dice to keep
 	for (int i = 0; i < num_of_dice; i++)
 	{
-		if (dice[i] == dice_to_keep)
+		if (dice[i] == dice_to_reroll)
 		{
-			return i;
+			recordIndices.push_back(i);
 		}
 	}
-	return -1;
+	return recordIndices;
 }
+

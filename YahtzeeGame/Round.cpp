@@ -1,5 +1,5 @@
 #include "Round.h"
-
+using namespace std;
 
 int Round::numOfRounds = 1;
 
@@ -17,22 +17,6 @@ Round::Round() {
 	//numOfRounds = 1;
 
 }
-
-
-//Round::Round(Scorecard sc, int player_id) {
-//
-//	sc.'displayScorecard'();
-//	this->player_id = player_id;
-//	this->player_choice = ' ';
-//
-//	// initializing the dice values to 0
-//	for (int i = 0; i < num_of_dice; i++) {
-//		dice.push_back(0);
-//	}
-//
-//	scorecard = sc;
-//	numOfRounds = 1;
-//}
 
 
 Round::~Round() {
@@ -235,12 +219,14 @@ void Round::playRoll() {
 
 	srand((unsigned)time(0));
 
-	// genrate random number for five dice
-	for (int i = 0; i < num_of_dice; i++) {
-		dice[i] = ((rand() % 6) + 1);
-	}
 
-	cout << endl;
+
+	// genrate random number for five dice
+	//for (int i = 0; i < num_of_dice; i++) {
+		//dice[i] = ((rand() % 6) + 1);
+	//}
+
+	//cout << endl;
 	// display the dice values
 
 }

@@ -6,6 +6,7 @@
 #include <sstream>
 #include <stdlib.h>
 #include <string>
+#include <cstring>
 #include <cstdlib>
 #include <ctime>
 #include <iomanip>

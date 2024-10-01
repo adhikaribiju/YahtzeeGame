@@ -36,6 +36,8 @@ public:
     void countDiceFace();
 
 
+    bool hasScoreableCategory();
+
   // void setScore(int category, vector<int>& dice, int player_id);
 
 
