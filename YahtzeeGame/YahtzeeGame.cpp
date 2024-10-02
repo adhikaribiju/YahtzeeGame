@@ -34,9 +34,7 @@ int main()
 	}
 	else {
 		cout << "Invalid choice. Exiting..." << endl;
-	} // will set the validation later on.
-
-
+	} 
 
 
 	return 0;

@@ -1,9 +1,6 @@
 #include "Scorecard.h"
 
 
-//int Round::numOfRounds;
-//vector<card> Scorecard::scoreCard;
-
 vector<card>Scorecard::scoreCard = {
 	{"Aces", 0, 0, 0},
 	{"Twos", 0, 0, 0},
@@ -34,9 +31,20 @@ Scorecard::Scorecard()
 
 Scorecard::~Scorecard()
 {
-
 }
 
+/* *********************************************************************
+Function Name: displayScorecard
+Purpose: To display the scorecard
+Parameters:
+	None
+Return Value:
+	None
+Algorithm:
+	1. Iterate through the scorecard
+	2. Display the category number, category name, score, player, and round number
+Reference: None
+********************************************************************* */
 void Scorecard::displayScorecard()
 {
 	
@@ -60,7 +68,22 @@ void Scorecard::displayScorecard()
 }
 
 
-// setters for scores
+/* *********************************************************************
+Function Name: setScore
+Purpose: To set the score for a category
+Parameters:
+	category, an integer
+		the category number
+	score, an integer
+		the score for the category
+	player_id, an integer
+		the player id
+Return Value:
+	None
+Algorithm:
+	1. Set the score for the category in the scorecard vector
+Reference: None
+********************************************************************* */
 void Scorecard::setScore(int category, int score, int player_id)
 {
 	
@@ -68,12 +91,38 @@ void Scorecard::setScore(int category, int score, int player_id)
 	scoreCard[category].player_id = player_id;
 }
 
+/* *********************************************************************
+Function Name: getCategoryScore
+Purpose: To get the score for a category
+Parameters:
+	category, an integer
+		the category number
+Return Value:
+	the score for the category
+Algorithm:
+	1. Get the score for the given category
+	2. Return the score
+Reference: None
+********************************************************************* */
 int Scorecard::getCategoryScore(int category)
 {
 	return scoreCard[category].score;
 }
 
-
+/* *********************************************************************
+Function Name: getTotal
+Purpose: To get the total score for a player
+Parameters:
+	player_id, an integer
+		the player id
+Return Value:
+	the total score for the player
+Algorithm:
+	1. Iterate through the scorecard vector
+	2. Add the score for the player given the player id in the scorecard vector
+	3. Return the total score
+Reference: None
+********************************************************************* */
 int Scorecard::getTotal(int player_id)
 {
 	int sum = 0;
@@ -85,6 +134,20 @@ int Scorecard::getTotal(int player_id)
 	return sum;
 }
 
+/* *********************************************************************
+Function Name: isCategoryFill
+Purpose: To check if a category is filled
+Parameters:
+	category, an integer
+		the category number
+Return Value:
+	true if the category is filled, false otherwise
+Algorithm:
+	1. Check if the score for the category is 0
+	2. If the score is 0, return false
+	3. If the score is not 0, return true
+Reference: None
+********************************************************************* */
 bool Scorecard::isScorecardFull()
 {
 	for (int i = 0; i < 12; i++) {
@@ -95,7 +158,20 @@ bool Scorecard::isScorecardFull()
 	return true;
 }
 
-
+/* *********************************************************************
+Function Name: playerWithLowestScore
+Purpose: To get the player with the lowest score
+Parameters:
+	None
+Return Value:
+	int, the player with the lowest score
+Algorithm:
+	1. Calculate the total score for player 1
+	2. Calculate the total score for player 2
+	3. Compare the total scores
+	4. Return the player with the lowest score
+Reference: None
+********************************************************************* */
 int Scorecard::playerWithLowestScore()
 {
 	// calculate player 1's score
@@ -113,7 +189,20 @@ int Scorecard::playerWithLowestScore()
 
 }
 
-
+/* *********************************************************************
+Function Name: isCategoryFill
+Purpose: To check if a category is filled
+Parameters:
+	category, an integer
+		the category number
+Return Value:
+	true if the category is filled, false otherwise
+Algorithm:
+	1. Check if the score for the category is 0
+	2. If the score is 0, return false
+	3. If the score is not 0, return true
+Reference: None
+********************************************************************* */
 bool Scorecard::isCategoryFill(int category)
 {
 	if (scoreCard[category].score == 0) { // changed from player_id to score

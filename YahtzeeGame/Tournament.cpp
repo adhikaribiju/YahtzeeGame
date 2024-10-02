@@ -10,6 +10,20 @@ Tournament::~Tournament() {
 
 }
 
+/* *********************************************************************
+Function Name: startTournament
+Purpose: To start the tournament
+Parameters:
+	None
+Return Value:
+	None
+Algorithm:
+	1. Roll the dice to determine who starts first
+	2. Start the round with the winning player
+	3. Continue the round until both players have played
+	4. Display the winner of the tournament
+Reference: None
+********************************************************************* */
 void Tournament::startTournament() {
 
 	Scorecard scorecard;
@@ -70,7 +84,23 @@ void Tournament::startTournament() {
 
 }
 
-
+/* *********************************************************************
+Function Name: loadTournament
+Purpose: To load a tournament from a file
+Parameters:
+	None
+Return Value:
+	None
+Algorithm:
+	1. Ask the user for the file name
+	2. Validate if the file exists
+	3. Process the file
+	4. Display the scorecard
+	5. Start the round with the player with the lowest score
+	6. Continue the round until both players have played
+	7. Display the winner of the tournament
+Reference: None
+********************************************************************* */
 void Tournament::loadTournament() {
 	
 	string fileName;
@@ -94,12 +124,15 @@ void Tournament::loadTournament() {
 		Scorecard scorecard;
 		Round round;
 		round.numOfRounds = serialize.getCurrentRound();
+
+		cout << "\n\nHuman Score: " << scorecard.getTotal(HUMAN) << endl;
+		cout << "Computer Score : " << scorecard.getTotal(COMPUTER) << endl;
 		
 	do {
 		// After the first round, find out the player with the lowest score and send it to the next round to start
-		round.playRound(scorecard.playerWithLowestScore());
+		round.resumeRound(scorecard.playerWithLowestScore());
 
-	} while (scorecard.isScorecardFull() == false);
+	} while (!scorecard.isScorecardFull());
 
 	// The round will continue until both players have played
 
@@ -111,6 +144,21 @@ void Tournament::loadTournament() {
 	}
 }
 
+/* *********************************************************************
+Function Name: displayWinner
+Purpose: To display the winner of the tournament
+Parameters:
+	player1, an integer
+		the score of the human player
+	player2, an integer
+		the score of the computer player
+Return Value:
+	None
+Algorithm:
+	1. Display the final scorecard
+	2. Display the winner
+Reference: None
+********************************************************************* */
 void Tournament::displayWinner(int player1, int player2) {
 	// Displaying the final scorecard
 	cout << "\n\nYour Score: " << player1 << endl;

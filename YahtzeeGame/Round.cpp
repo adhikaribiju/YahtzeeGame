@@ -20,6 +20,24 @@ Round::~Round() {
 	dice.clear();
 }
 
+/* *********************************************************************
+Function Name: playRound
+Purpose: To start a round consisting of two turns
+Parameters:
+	player_id, an integer
+		1 for human, 2 for computer
+Return Value:
+	None
+Algorithm:
+	1. Create a Human object
+	2. Create a Computer object
+	3. Display the round number
+	4. If the player is human, let the human play the turn first
+	5. If the player is computer, let the computer play the turn first
+	6. If the player decides to save the game, save the game and exit
+	7. Increment the number of rounds played
+Reference: None
+********************************************************************* */
 void Round::playRound(int player_id) {
 	// A turn consists of maximun of 3 rolls
 
@@ -28,8 +46,6 @@ void Round::playRound(int player_id) {
 
 
 	cout << "\nRound " << numOfRounds << endl;
-
-
 
 	if (player_id == 1) {
 		human.playTurn();
@@ -52,6 +68,67 @@ void Round::playRound(int player_id) {
 	numOfRounds++;
 }
 
+/* *********************************************************************
+Function Name: resumeRound
+Purpose: To resume a round consisting of two turns
+Parameters:
+	player_id, an integer
+		1 for human, 2 for computer
+Return Value:
+	None
+Algorithm:
+	1. Create a Human object
+	2. Create a Computer object
+	3. Display the round number
+	4. If the player is human, let the human play the turn first
+	5. If the player is computer, let the computer play the turn first
+	6. If the player decides to save the game, save the game and exit
+	7. Increment the number of rounds played
+Reference: None
+********************************************************************* */
+void Round::resumeRound(int player_id) {
+
+
+	Human human; //s create a human object
+	Computer computer; // create a computer object
+	Combinations c;
+
+	cout << "\nRound " << numOfRounds << endl;
+
+	if (player_id == 1) {
+		human.playTurn();
+		if (!c.isScorecardFull()) computer.playTurn();
+	}
+	else
+	{
+		computer.playTurn();
+		if (!c.isScorecardFull()) human.playTurn();
+	}
+
+	if (isSaveGame()) {
+		Serialization serialize;
+		if (serialize.saveGame()) {
+			cout << "Game saved!" << endl;
+			exit(0); // Exit the program
+		}
+	}
+
+	numOfRounds++;
+}
+
+/* *********************************************************************
+Function Name: diceIndex
+Purpose: To find the index of the dice to keep
+Parameters:
+	dice_to_keep, an integer
+		the value of the dice to keep
+Return Value:
+	the index of the dice to keep
+Algorithm:
+	1. Find the index of the dice to keep
+	2. Return the index
+Reference: None
+********************************************************************* */
 int Round::diceIndex(int dice_to_keep) {
 	// find the index of the dice to keep
 	for (int i = 0; i < NUM_OF_DICE; i++)
@@ -64,7 +141,18 @@ int Round::diceIndex(int dice_to_keep) {
 	return -1;
 }
 
-
+/* *********************************************************************
+Function Name: displayDice
+Purpose: To display the dice values
+Parameters:
+	None
+Return Value:
+	None
+Algorithm:
+	1. Iterate through the dice array
+	2. Display the dice values
+Reference: None
+********************************************************************* */
 void Round::displayDice() {
 	// display the dice values
 	for (int i = 0; i < NUM_OF_DICE; i++)
@@ -74,11 +162,32 @@ void Round::displayDice() {
 	cout << endl;
 }
 
-
+/* *********************************************************************
+Function Name: getRoundNo
+Purpose: getter function to return the number of rounds played
+Parameters:
+	None
+Return Value:
+	int, the number of rounds played
+Reference: None
+********************************************************************* */
 const int Round::getRoundNo() {
 	return numOfRounds;
 }
 
+/* *********************************************************************
+Function Name: isSaveGame
+Purpose: To check if the user wants to save the game
+Parameters:
+	None
+Return Value:
+	'true' if the user wants to save the game, 'false' otherwise
+Algorithm:
+	1. Ask the user if they want to save the game
+	2. If the user wants to save the game, return 'true'
+	3. Otherwise, return 'false'
+Reference: None
+********************************************************************* */
 bool Round::isSaveGame() {
 
 	string save_game;

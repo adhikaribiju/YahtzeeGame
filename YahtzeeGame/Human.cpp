@@ -18,6 +18,24 @@ Human::~Human(){
 
 }
 
+/* *********************************************************************
+Function Name: playTurn
+Purpose: To play a turn for the human player
+Parameters:
+	None
+Return Value: None
+Algorithm:
+	1. Roll the dice
+	2. Display the dice values
+	3. Display the available combinations
+	4. Display the available categories
+	5. Ask the user if they want to roll again
+	6. If yes, ask the user to choose the dice to roll again
+	7. If no, ask the user to choose a category to score
+	8. Score the category if available
+	9. End the turn
+Reference: None
+********************************************************************** */
 void Human::playTurn() {
 	cout << "\nYou are playing....." << endl;
 
@@ -74,7 +92,18 @@ void Human::playTurn() {
 	cout << "\n\nYour Turn Ended!" << endl;
 }
 
-
+/* *********************************************************************
+Function Name: customFill
+Purpose: To fill the dice array with user input
+Parameters:
+	None
+Return Value: None
+Algorithm:
+	1. Ask the user to enter the value for each dice
+	2. Validate the input
+	3. Fill the dice array with the user input
+Reference: None
+********************************************************************** */
 void Human::customFill() {
 	// we are asking the user to fill in the dice array
 	for (int i = 0; i < DICE_COUNT; i++) {
@@ -93,6 +122,18 @@ void Human::customFill() {
 	}
 }
 
+/* *********************************************************************
+Function Name: scoreCategory
+Purpose: To score a category for the human player
+Parameters:
+	board, an object of Combinations class - the scorecard
+Return Value: None
+Algorithm:
+	1. Check if there is any category available to score
+	2. If yes, ask the user to choose a category to score
+	3. Score the category
+Reference: None
+********************************************************************** */
 void Human::scoreCategory(Combinations board) {
 	bool hasScored = false;
 	if (!board.hasScoreableCategory())
@@ -132,9 +173,18 @@ void Human::scoreCategory(Combinations board) {
 	}
 }
 
-
-
-
+/* *********************************************************************
+Function Name: reRoll
+Purpose: To reroll the dice for the human player
+Parameters:
+	None
+Return Value: None
+Algorithm:
+	1. Ask the user to choose the dice to reroll
+	2. Validate the input
+	3. Reroll the dice
+Reference: None
+********************************************************************** */
 void Human::reRoll() {
     bool isValiddie = false;
     cout << "Enter the dice numbers you wish to roll again, separated by spaces." << endl;
@@ -263,7 +313,19 @@ void Human::reRoll() {
 }
 
 
-
+/* *********************************************************************
+Function Name: findScorebyCategory
+Purpose: To find the score for each category for the human player
+Parameters:
+	None
+Return Value: None
+Algorithm:
+	1. Clear the availableScores vector
+	2. Check if there are any available combinations
+	3. Calculate the score for upper section category(1-6)
+	4. Add the score to the availableScores vector
+Reference: None
+********************************************************************** */
 void Human::findScorebyCategory() {
 
     availableScores.clear();
@@ -307,7 +369,31 @@ void Human::findScorebyCategory() {
     }
 }
 
-
+/* *********************************************************************
+Function Name: viewHelp
+Purpose: To provide help to the human player
+Parameters:
+	dice, a vector of integers - the dice values
+Return Value: None
+Algorithm:
+	1. Ask the user if they want to use help
+	2. If yes, find the score for each category
+	3. If the highest score is >= 20, recommend the category with the highest score
+	4. If the score is < 20, check if the lower section is available to score
+		- If the lower section is filled, check if the upper section is available to score
+			- If the upper section is available, check if there is any category available in dice
+				- If yes, score the highest available
+				- Otherwise, roll all dice
+	5. Recommend the category with the highest score if score is greater than 10 and from upper section
+	6. If the score is < 10, check if 3 or 4 of a kind is available
+		- If yes, recommend scoring the 3/4 of a kind
+		- Otherwise, check if 3 sequential numbers are available
+			- If yes, check if five/four straight are available to score
+				- If yes, keep the 3 sequential numbers and reroll the rest
+			- If not, check for non-sequential numbers
+	7. If no rolls left, score whatever is available
+Reference: None
+********************************************************************** */
 void Human::viewHelp(vector<int>& dice) {
 	int highestIndex = 0;
 	int highestScore = 0;
@@ -329,8 +415,6 @@ void Human::viewHelp(vector<int>& dice) {
 
             keepDice.clear();
 
-
-
             if (keepFlag || !helpStrategy(dice)) {
                 //score the max available if any
                  highestIndex = -1;
@@ -347,11 +431,6 @@ void Human::viewHelp(vector<int>& dice) {
 
 
             }
-			// If a valid index was found, set the score for that category
-			//if (highestIndex != -1) {
-				//cout << "Score the point: " << availableScores[highestIndex].first << " since it is the highest.";
-				//helpShown = true;
-			//}
 
             if (!helpShown) cout << "Try rolling all available dice since there are limited/no options at the moment." << endl;
 
@@ -369,7 +448,30 @@ void Human::viewHelp(vector<int>& dice) {
 }
 
 
-
+/* *********************************************************************
+Function Name: helpStrategy
+Purpose: To provide help in choosing the maximum score for the human player
+Parameters:
+	dice, a vector of integers - the dice values
+Return Value: A boolean value
+Algorithm:
+	1. Check if there is any score >= 20
+	2. If yes, recommend the category with the highest score
+	3. If the score is < 20, check if the lower section is available to score
+	- If the lower section is filled, check if the upper section is available to score
+		- If the upper section is available, check if any category in dice right now
+			- If yes, score the highest available
+			- If not, roll all dice
+		- If the score is >= 10, recommend the category with the highest score
+	4. If the score is < 10, check if 3 or 4 of a kind is available
+		- If yes, recommend scoring the 3/4 of a kind
+		- If not, check if 3 sequential numbers are available
+			- If yes, check if five/four straight are available to score
+				- If yes, keep the 3 sequential numbers and reroll the rest
+			- If not, check for non-sequential numbers
+	- If no rolls left, score whatever is available
+Reference: None
+********************************************************************** */
 bool Human::helpStrategy(vector<int>& dice) {
 	helpShown = false;
 	help_board.updateDice(dice);
@@ -452,10 +554,18 @@ bool Human::helpStrategy(vector<int>& dice) {
 }
 
 
-// to check if lower section is left to score
-
-// retrun false if lower section completely not filled
-// return true if lower section is completely filled
+/* *********************************************************************
+Function Name: lowerSectionFilled
+Purpose: To check if the lower section is filled for the human player
+Parameters:
+	None
+Return Value: 'true' if the lower section is filled, 'false' otherwise
+Algorithm:
+	1. Check if the lower section is filled
+	2. If yes, return true
+	3. If no, return false
+Reference: None
+********************************************************************** */
 bool Human::lowerSectionFilled() {
 	for (int i = 6; i < 12; i++)
 	{
@@ -464,6 +574,17 @@ bool Human::lowerSectionFilled() {
 	return true;
 }
 
+/* *********************************************************************
+Function Name: displayHighestScore
+Purpose: To display the highest score for the human player
+Parameters:
+	None
+Return Value: None
+Algorithm:
+	1. Loop through the availableScores vector to find the category with the highest score
+	2. If the category is not filled, display the category number
+Reference: None
+********************************************************************** */
 void Human::displayHighestScore()
 {
 	for (int i = static_cast<int>(availableScores.size()) - 1; i >= 0; i--) {
@@ -475,7 +596,20 @@ void Human::displayHighestScore()
 	}
 }
 
-
+/* *********************************************************************
+Function Name: isSequentialAvailable
+Purpose: To check if a sequential is possible for the human player
+Parameters:
+	None
+Return Value: 'true' if a sequential is possible, 'false' otherwise
+Algorithm:
+	1. Record the count of numbers on the dice
+	2. Check for the specific consecutive sequences {1, 2, 3} or {2, 3, 4}
+	3. If a sequence is found and the category is not filled, add dice involved in the sequence to keepDice
+	4. Re-roll dice that are not part of the sequence
+	5. Display the dice that can be rolled to obtain sequential numbers for 4 Straight or 5 Straight category
+Reference: None
+********************************************************************** */
 bool Human::isSequentialAvailable()
 {
 	vector<int> count(7, 0);  // Initialize count vector with 7 elements, all set to 0
@@ -552,7 +686,20 @@ bool Human::isSequentialAvailable()
 
 }
 
-
+/* *********************************************************************
+Function Name: tryYahtzee
+Purpose: To see if Yahtzee is possible for the human player
+Parameters:
+	None
+Return Value: None
+Algorithm:
+	1. Record the count of numbers on the dice
+	2. Check if any dice number has count > 3 (three of a kind)
+	3. If no three of a kind, check for two of a kind (count > 2)
+	4. Choose the dice to roll based on the conditions
+	5. Display the dice that can be rolled to obtain Yahtzee or Full House
+Reference: None
+********************************************************************** */
 void Human::tryYahtzee() {
 	bool threeOfAKind = false;
 	bool twoOfAKind = false;

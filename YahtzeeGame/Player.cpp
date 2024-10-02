@@ -12,7 +12,6 @@ Player::Player() {
 	{
 		dice.push_back(0);
 	}
-	
 }
 
 Player::Player(int p_id) {
@@ -24,11 +23,19 @@ Player::Player(int p_id) {
 
 
 Player::~Player() {
-
-
-
 }
 
+/* *********************************************************************
+Function Name: displayDice
+Purpose: To display the dice values
+Parameters:
+	None
+Return Value:
+	None
+Algorithm:
+	1. Display the dice values in the dice array
+Reference: None
+********************************************************************* */
 void Player::displayDice() {
 	cout << "Dice: ";
 	for (int i = 0; i < DICE_COUNT; i++) {
@@ -37,6 +44,19 @@ void Player::displayDice() {
 	cout << endl;
 }
 
+/* *********************************************************************
+Function Name: playRoll
+Purpose: To roll the dice
+Parameters:
+	None
+Return Value:
+	None
+Algorithm:
+	1. Ask the user if they want to manually input the dice values
+	2. If yes, take the input from the user
+	3. If no, generate random numbers for the dice
+Reference: None
+********************************************************************* */
 void Player::playRoll() {
 	// A roll consists of rolling 5 dice
 
@@ -79,7 +99,18 @@ void Player::playRoll() {
 
 }
 
-
+/* *********************************************************************
+Function Name: diceIndex
+Purpose: To find the index of the dice to keep
+Parameters:
+	dice_to_reroll, an integer
+Return Value:
+	vector<int>, a vector of integers
+Algorithm:
+	1. Find the index of the dice to keep
+	2. Return the vector of indices
+Reference: None
+********************************************************************* */
 vector<int> Player::diceIndex(int dice_to_reroll) {
 	vector<int> recordIndices;
 	// find the index of the dice to keep

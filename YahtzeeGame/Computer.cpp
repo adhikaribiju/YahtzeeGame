@@ -10,9 +10,25 @@ Computer::Computer() {
 }
 
 Computer::~Computer() {
-
 }
 
+/* *********************************************************************
+Function Name: playTurn
+Purpose: To play the turn for the computer
+Parameters:
+	None
+Return Value: None
+Algorithm:
+	1) Roll the 5 dice randomly OR manually
+	2) Display the dice values
+	3) Retrive the combinations
+	4) Display the scorecard
+	5) Display the available combinations from the dice
+	6) Loop until the computer used 3 rolls or has scored
+	7) Check if computer was able to score, if not score the max available if any
+	8) If no score available, skip the turn and display a message
+Reference: None
+********************************************************************* */
 void Computer::playTurn() {
 	cout << "\nComputer is playing....." << endl;
 
@@ -44,7 +60,7 @@ void Computer::playTurn() {
 		int highestScore = -1;
 		findCategoryScore(); // Since the dice was re-rolled
 		// Loop through the scoresAvailable vector to find the category with the highest score
-		for (int i = 0; i < scoresAvailable.size(); i++) {
+		for (int i = 0; i < static_cast<int>(scoresAvailable.size()); i++) {
 			if (!board.isCategoryFill(scoresAvailable[i].first)) {
 				if (scoresAvailable[i].second > highestScore) {
 					highestScore = scoresAvailable[i].second;
@@ -65,18 +81,31 @@ void Computer::playTurn() {
 
 	cout << "\n\nComputer's Turn Ended!" << endl;
 
-
 	//{Computer gets 2 more rolls to come up with the category to score}
 	//{After 2nd roll, the computer can keep certain dice and reroll the rest}
 	//{After 3rd roll, the computer can keep certain dice and reroll the ones that were not kept}
 	//{After 3rd roll, the computer must choose a category to score if available}
-	
-
 	// Check the max score available to score // if more than or equal to 25 score it
-
 
 }
 
+/* *********************************************************************
+Function Name: findCategoryScore
+Purpose: To find the category available on the dice and its corresponding score
+Parameters:
+	None
+Return Value: None
+Algorithm:
+	1) Loop through the upper section categories and calculate the score for each category
+	2) If the score is not 0, add the category and score to the scoresAvailable vector
+	3) Check for Three of a Kind, if available, add it to the scoresAvailable vector
+	4) Check for Four of a Kind, if available, add it to the scoresAvailable vector
+	5) Check for Full House, if available, add it to the scoresAvailable vector
+	6) Check for Small Straight, if available, add it to the scoresAvailable vector
+	7) Check for Large Straight, if available, add it to the scoresAvailable vector
+	8) Check for Yahtzee, if available, add it to the scoresAvailable vector
+Reference: None
+********************************************************************* */
 void Computer::findCategoryScore() {
 
 	scoresAvailable.clear();
@@ -121,11 +150,37 @@ void Computer::findCategoryScore() {
 	}
 
 
-
+/* *********************************************************************
+Function Name: computerDecide
+Purpose: To decide if computer should keep rolling or score
+Parameters:
+	None
+Return Value: bool
+	'true' if computer decides to keep rolling, 'false' otherwise
+Algorithm:
+	1) Loop through the available scores vector to find the category with the highest score
+	2) If available score is greater then 20, set the score for that category
+	3) Otherwise, check if dice rolls are left
+	4) If dice rolls availbale, check if lower section is available to score
+		- If lower section is available, check if any category in dice right now
+			- Score the highest available if lower section is available
+		- Otherwise, ROLL the dice
+	5) If lower section is not available, check if score available is >=10
+		- If yes, score it
+		- Otherwise, check 3 or 4 of kind available
+	6) If 3/4 of a kind is available, score it
+	7) Check if dice has 3 sequential numbers
+		- If yes, check if five/four straight are available to score
+			- If yes, keep the 3 sequential numbers and reroll the rest
+			- Otherwise, CHECK FOR Non-sequential numbers
+	8) Try to get Yahtzee or Full House
+	9) Return false if dice was kept or rerolled
+Reference: None
+********************************************************************* */
 bool Computer::computerDecide() {
 	isScoreSet = false;
 
-	for (int i = scoresAvailable.size() - 1; i >= 0; i--) {
+	for (int i = static_cast<int>(scoresAvailable.size()) - 1; i >= 0; i--) {
 		if (scoresAvailable[i].second >= 20 && !board.isCategoryFill(scoresAvailable[i].first)) {
 			board.setScore(scoresAvailable[i].first, 2);
 			isScoreSet = true;
@@ -160,7 +215,7 @@ bool Computer::computerDecide() {
 			else {
 				// At this point, check if score availble is >=10
 				// If Yes, Score it
-				for (int i = scoresAvailable.size() - 1; i >= 0; i--) {
+				for (int i = static_cast<int>(scoresAvailable.size()) - 1; i >= 0; i--) {
 					if (scoresAvailable[i].second >= 10 && !board.isCategoryFill(scoresAvailable[i].first)) {
 						board.setScore(scoresAvailable[i].first, 2);
 						isScoreSet = true;
@@ -169,7 +224,7 @@ bool Computer::computerDecide() {
 				}
 				// If Not, check 3 or 4 of kind available
 				if (!isScoreSet) {
-					for (int i = scoresAvailable.size() - 1; i >= 0; i--) {
+					for (int i = static_cast<int>(scoresAvailable.size()) - 1; i >= 0; i--) {
 						// if 3/4 of a kind available, score it NO MATTER HOW SMALL THE SCORE
 						if (scoresAvailable[i].first + 1 == 7 || scoresAvailable[i].first + 1 == 8) {
 							board.setScore(scoresAvailable[i].first, 2);
@@ -219,10 +274,18 @@ bool Computer::computerDecide() {
 }
 
 
-// to check if lower section is left to score
-
-// retrun false if lower section completely not filled
-// return true if lower section is completely filled
+/* *********************************************************************
+Function Name: lowerSectionFilled
+Purpose: To check if lower section is left to score
+Parameters:
+	None
+Return Value: 'true' if lower section is completely filled, 'false' otherwise
+Algorithm:
+	1) Loop through the lower section categories
+	2) If any category is not filled, return 'false'
+	3) If all categories are filled, return 'true'
+Reference: None
+********************************************************************* */
 bool Computer::lowerSectionFilled() {
 	for (int i = 6; i < 12; i++)
 	{
@@ -231,16 +294,41 @@ bool Computer::lowerSectionFilled() {
 	return true;
 }
 
+/* *********************************************************************
+Function Name: scoreHighestAvailable
+Purpose: To score the highest points availble currently
+Parameters:
+	None
+Return Value:
+	None
+Algorithm:
+	1) Loop through the scoresAvailable vector to find the category with the highest score
+	2) If a valid index was found, set the score for that category
+Reference: None
+********************************************************************* */
 void Computer::scoreHighestAvailable()
 {
-	for (int i = scoresAvailable.size() - 1; i >= 0; i--) {
+	for (int i = static_cast<int>(scoresAvailable.size()) - 1; i >= 0; i--) {
 		if (!board.isCategoryFill(scoresAvailable[i].first + 1)) {
 			board.setScore(scoresAvailable[i].first, 2);
 		}
 	}
 }
 
-
+/* *********************************************************************
+Function Name: isSequentialAvailable
+Purpose: If sequential possible by rolling dice, it rolls them and returns true
+Parameters:
+	None
+Return Value: 'true' if sequence was found and dice were kept/rolled, 'false' otherwise
+Algorithm:
+	1) Record the count of numbers on the dice
+	2) Check for the specific consecutive sequences {1, 2, 3} or {2, 3, 4}
+	3) If sequence found and category 9 or 10 is not filled, add dice involved in the sequence to keptDices
+	4) Re-roll dice that are not part of the sequence
+	5) Return 'true' if sequence was found and dice were kept/rolled, 'false' otherwise
+Reference: None
+********************************************************************* */
 bool Computer::isSequentialAvailable()
 {
 	vector<int> count(7, 0);  // Initialize count vector with 7 elements, all set to 0
@@ -284,14 +372,14 @@ bool Computer::isSequentialAvailable()
 
 		// Re-roll dice that are not part of the sequence
 		srand((unsigned)time(0));  // Initialize random seed
-		std::cout << "Computer decided to roll: "; // getting cout is ambigious error so used std::cout
+		std::cout << "Computer is trying to get 4/5 straight: "<< endl; // getting cout is ambigious error so used std::cout
 		for (int i = 0; i < dice.size(); ++i) {
 			int value = dice[i];
 			// Re-roll only dice that are not part of the sequence
 			if ((value != 1 && value != 2 && value != 3) &&  // Not in {1, 2, 3}
 				(value != 2 && value != 3 && value != 4)) {  // Not in {2, 3, 4}
-				std::cout << value << " ";
-				dice[i] = ((rand() % 6) + 1);  // Roll a new random dice value
+				std::cout << "Computer decided to roll: " << value << endl;
+				dice[i] = askifInputManual(dice[i]);  // Roll a new random dice value
 				diceRoll = true;
 			}
 		}
@@ -311,7 +399,21 @@ bool Computer::isSequentialAvailable()
 
 }
 
-
+/* *********************************************************************
+Function Name: tryYahtzeeOrFullHouse
+Purpose: To roll certain dices to get Yathzee or Full House
+Parameters:
+	None
+Return Value: None
+Algorithm:
+	1) Initialize the count vector
+	2) Record the count of numbers on the dice
+	3) Check if any dice number has count > 3 (three of a kind)
+	4) If no three of a kind, check for two of a kind (count > 2)
+	5) Prepare to log the dice values being rolled
+	6) Roll the dice based on the conditions
+Reference: None
+********************************************************************* */
 void Computer::tryYahtzeeOrFullHouse() {
 	bool threeOfAKind = false;
 	bool twoOfAKind = false;
@@ -354,7 +456,7 @@ void Computer::tryYahtzeeOrFullHouse() {
 	}
 
 	// Step 3: Prepare to log the dice values being rolled
-	cout << "Computer decided to roll: ";
+	cout << "Computer is trying to get Yahtzee or Full House: " << endl;
 	bool anyRolled = false;  // A flag to check if any dice is being rolled
 
 	// Step 4: Roll the dice based on the conditions
@@ -363,8 +465,8 @@ void Computer::tryYahtzeeOrFullHouse() {
 		if (threeOfAKind) {
 			// Roll all dice except those that have the value matching the three of a kind
 			if (dice[i] != targetValueThreeOfAKind && (find(keptDices.begin(), keptDices.end(), i) == keptDices.end())) {
-				cout << dice[i] << " ";  // Log the value being rolled
-				dice[i] = ((rand() % 6) + 1);  // Roll the dice
+				cout << "Computer decided to roll: " << dice[i] << endl;  // Log the value being rolled
+				dice[i] = askifInputManual(dice[i]);
 				anyRolled = true;
 			}
 			else if (find(keptDices.begin(), keptDices.end(), i) == keptDices.end()) {
@@ -379,8 +481,8 @@ void Computer::tryYahtzeeOrFullHouse() {
 		else if (twoOfAKind) {
 			// Roll all dice except those that have the value matching the two of a kind
 			if (dice[i] != targetValueTwoOfAKind && (find(keptDices.begin(), keptDices.end(), i) == keptDices.end())) {
-				cout << dice[i] << " ";  // Log the value being rolled
-				dice[i] = ((rand() % 6) + 1);  // Roll the dice
+				cout << "Computer decided to roll: " << dice[i] << " ";  // Log the value being rolled
+				dice[i] = askifInputManual(dice[i]);
 				anyRolled = true;
 			}
 			else if (find(keptDices.begin(), keptDices.end(), i) == keptDices.end()) {
@@ -394,8 +496,8 @@ void Computer::tryYahtzeeOrFullHouse() {
 		}
 		else {
 			// If no "three of a kind" or "two of a kind" found, roll all dice
-			cout << dice[i] << " ";  // Log the value being rolled
-			dice[i] = ((rand() % 6) + 1);  // Roll the dice
+			cout << "Computer decided to roll: " << dice[i] << " ";  // Log the value being rolled
+			dice[i] = askifInputManual(dice[i]);  // Roll the dice
 			anyRolled = true;
 		}
 	}
@@ -405,6 +507,54 @@ void Computer::tryYahtzeeOrFullHouse() {
 		board.updateDice(dice);
 		board.displayAvailableCombinations(); // display the available combinations
 		cout << endl; // new line
+	}
+
+}
+
+/* *********************************************************************
+Function Name: askifInputManual
+Purpose: To ask if the user wants to input the dice manually
+Parameters:
+	int dice_no, the dice number
+Return Value: int, the dice value
+Algorithm:
+	1) Ask the user if they wish to manually input the dice value
+	2) If yes, ask the user to enter the value
+	3) If no, return a random number between 1-6
+Reference: None
+********************************************************************* */
+int Computer::askifInputManual(int dice_no)
+{
+
+	string choice;
+	string num;
+	choice = " ";
+	num = " ";
+	srand(time(0));  // Seed for random number generation
+	cin.ignore();
+	do {
+		cout << "\nDo you wish to manually input the dice value for " << dice_no << " (Y/N)" << endl;
+		cout << "Enter N to randomly generate: " << endl;
+		getline(cin, choice);
+		if (choice != "Y" && choice != "y" && choice != "n" && choice != "N") {
+			cout << "Invalid Entry! Enter Y/N" << endl;
+		}
+	} while (choice != "Y" && choice != "y" && choice != "N" && choice != "n");
+
+
+	if (choice == "Y" || choice == "y") {
+		do {
+			cout << "Enter the value for dice " << dice_no << " : ";
+			getline(cin, num);
+			if (num < "1" || num > "6")
+			{
+				cout << "Invalid entry! Enter values from 1-6 " << endl;
+			}
+		} while (num < "1" || num > "6");
+		return stoi(num);
+	}
+	else {
+		return ((rand() % 6) + 1); // return a random number between 1-6
 	}
 
 }

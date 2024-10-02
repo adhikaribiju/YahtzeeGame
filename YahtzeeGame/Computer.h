@@ -9,30 +9,50 @@ public:
 	Computer();
 	~Computer();
 
-	void playTurn();
-	void findCategoryScore(); // find the category available on the dice and its corresponding score
+	// to play the turn for the computer
+	void playTurn() override; 
+	// find the category available on the dice and its corresponding score
+	void findCategoryScore();
 
 
 	// Functions for computer strategy
-	bool computerDecide(); // to decide if computer should keep rolling or score
-	bool lowerSectionFilled(); // to check if lower section is left to score
-	void scoreHighestAvailable(); // score the highest points availble currently
-	bool isSequentialAvailable(); // if sequential possible by rolling dice, it rolls them and returns true
-	void tryYahtzeeOrFullHouse(); // function to roll certain dices to get Yathzee or Full House
+	// to decide if computer should keep rolling or score
+	bool computerDecide(); 
+	// to check if lower section is left to score
+	bool lowerSectionFilled();
+	// score the highest points availble currently
+	void scoreHighestAvailable(); 
+	// if sequential possible by rolling dice, it rolls them and returns true
+	bool isSequentialAvailable();
+	// function to roll certain dices to get Yathzee or Full House
+	void tryYahtzeeOrFullHouse(); 
+
+	// ask if the user wants to input the dice manually
+	int askifInputManual(int dice_no);
 
 private:
 
-	int num_rolls; // to track the number of rolls played
+	// to track the number of rolls played by the computer
+	int num_rolls;
 
+	// to track whether the computer wants to reroll the dice
 	bool reroll;
-	bool keepError;
-	bool isScoreSet; // to check if the score has been set
 
+	// flag to check if the computer gets a conflct in the dice reroll
+	bool keepError;
+	// to check if the score has been set
+	bool isScoreSet;
+
+	// to store the scores available on the dice
 	vector<pair<int, int>> scoresAvailable;
-	vector<int> keptDices; // to track the indices of the dice kept and NOT Rolled
-	vector<int> availableCategory; // stores the matching categories based on the dice 
+
+	// to track the indices of the dice to keep and NOT Rolled
+	vector<int> keptDices;
+	// stores the matching categories based on the dice 
+	vector<int> availableCategory;
 	// Note: The above vector doesn't check if that category is already filled in the scorecard
 
-	Combinations board; // retrive the combinations
+	// to retrive the combinations available on the dice
+	Combinations board;
 	 
 };

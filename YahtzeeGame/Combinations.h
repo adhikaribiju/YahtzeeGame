@@ -15,15 +15,15 @@ public:
     // to store the scores in the scorecard
     bool setScore(int category, int player_id);
 
-    // Functions to calculate scores
-    int calculateUpperSectionScore(int number);
-    int sumAllDice();
-
-	// update the dice values
+    // update the dice values
     void updateDice(vector<int>& dice);
 
     //to return available combinations in a vector 
     vector<int> availableCombinations();
+
+    // Functions to calculate scores
+    int calculateUpperSectionScore(int number);
+    int sumAllDice();
 
     // Functions to check for various combinations
     bool hasThreeOfAKind() const;
@@ -40,14 +40,17 @@ public:
     void countDiceFace();
 
 
-
-
 private:
 
+    // to store the number of dice in the game
     const int DICE_COUNT = 5;
+    // to store the maximum value of the dice
     const int MAX_DICE_VALUE = 6;
 
-    vector<int> dice; // Stores the dice values
-    vector<int> available_combinations; // stores the category numbers of the combinations available given dice combinations
-    int counts[7];  // Frequency counts of dice values (indices 1-6)
+    // Stores the dice values
+    vector<int> dice; 
+    // stores the category numbers of the combinations available on dice values
+    vector<int> available_combinations; 
+    // Frequency counts of dice values (indices 1-6)
+    int counts[7]; 
 };

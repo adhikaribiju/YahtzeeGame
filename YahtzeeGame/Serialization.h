@@ -18,11 +18,12 @@ public:
 	bool readFile(const string& fileName);
 
 	bool saveGame();
-	void loadGame();
 	void displayLoadedScorecard();
 
 	Scorecard scorecard;
 
 private:
+
+	// to store the current round number
 	int currentRound;
 };
