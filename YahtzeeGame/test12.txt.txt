@@ -1,0 +1,15 @@
+Round: 2
+
+Scorecard:
+0
+0
+0
+0
+0
+0
+0
+25 Computer 3
+25 Human 3
+30 Computer 2
+40 Computer 1
+50 Human 2
